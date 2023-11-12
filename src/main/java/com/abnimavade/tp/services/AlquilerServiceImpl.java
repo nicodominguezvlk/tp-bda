@@ -50,7 +50,7 @@ public class AlquilerServiceImpl implements AlquilerService {
         return alquiler;
     }
 
-    private AlquilerDTO getById(Long id) {
+    public AlquilerDTO getById(Long id) {
         Optional<Alquiler> alquiler = this.alquilerRepository.findById(id);
         return alquiler.map(DTOmapper).orElseThrow();
     }

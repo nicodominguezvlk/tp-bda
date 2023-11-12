@@ -51,7 +51,7 @@ public class EstacionServiceImpl implements EstacionService {
         return estacion;
     }
 
-    private EstacionDTO getById(Long id) {
+    public EstacionDTO getById(Long id) {
         Optional<Estacion> estacion = this.estacionRepository.findById(id);
         return estacion.map(DTOmapper).orElseThrow();
     }

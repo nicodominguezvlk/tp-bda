@@ -50,7 +50,7 @@ public class TarifaServiceImpl implements TarifaService{
         return tarifa;
     }
 
-    private TarifaDTO getById(Long id) {
+    public TarifaDTO getById(Long id) {
         Optional<Tarifa> tarifa = this.tarifaRepository.findById(id);
         return tarifa.map(DTOmapper).orElseThrow();
     }
