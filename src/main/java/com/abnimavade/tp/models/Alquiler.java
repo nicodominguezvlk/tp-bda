@@ -20,10 +20,13 @@ public class Alquiler {
     @Column(name = "ESTADO")
     private long estadoTarifa;
 
+    // VALE:
+    // Esto es un OneToMany porque una estacion puede tener muchos alquileres
     @ManyToOne
     @JoinColumn(name = "ESTACION_RETIRO")
     private Estacion estacionRetiro;
 
+    // Lo mismo que arriba
     @ManyToOne
     @JoinColumn(name = "ESTACION_DEVOLUCION")
     private Estacion estacionDevolucion;
@@ -39,7 +42,8 @@ public class Alquiler {
     @Column(name = "MONTO")
     private double monto;
 
-    @ManyToOne
+    // Esto es un OneToOne porque un alquiler tiene una sola tarifa
+    @OneToOne
     @JoinColumn(name = "ID_TARIFA")
     private Tarifa idTarifa;
 }
