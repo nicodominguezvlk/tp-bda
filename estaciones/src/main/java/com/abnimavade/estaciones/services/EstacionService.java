@@ -108,4 +108,20 @@ public class EstacionService {
         long idEstacionCercana = estacionMasCercana.getEstacionId();
         return idEstacionCercana;
     }
+
+    public Double getDistanciaEstaciones(int idEstacionDevolucion, int idEstacionRetiro){
+        List<Estacion> estaciones = estacionRepository.findAll();
+        Estacion estacionDevolucion = null;
+        Estacion estacionRetiro = null;
+        for (Estacion estacion : estaciones) {
+            if (estacion.getEstacionId() == idEstacionDevolucion) {
+                estacionDevolucion = estacion;
+            }
+            if (estacion.getEstacionId() == idEstacionRetiro) {
+                estacionRetiro = estacion;
+            }
+        }
+        double distancia = distanciaEuclidiana(estacionDevolucion.getLatitud(), estacionDevolucion.getLongitud(), estacionRetiro.getLatitud(), estacionRetiro.getLongitud());
+        return distancia;
+    }
 }

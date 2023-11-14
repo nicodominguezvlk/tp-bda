@@ -1,6 +1,5 @@
 package com.abnimavade.alquileres.dtos;
 
-import com.abnimavade.alquileres.models.EstacionReference;
 import com.abnimavade.alquileres.models.Tarifa;
 import lombok.*;
 
@@ -15,8 +14,8 @@ public class AlquilerDTO {
     private long alquilerId;
     private String idCliente;
     private long estadoTarifa;
-    private EstacionReference estacionRetiro;
-    private EstacionReference estacionDevolucion;
+    private int idEstacionRetiro;
+    private int idEstacionDevolucion;
     private Date fechaHoraRetiro;
     private Date fechaHoraDevolucion;
     private double monto;

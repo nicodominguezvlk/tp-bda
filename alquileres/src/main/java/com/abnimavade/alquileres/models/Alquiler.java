@@ -20,16 +20,11 @@ public class Alquiler {
     @Column(name = "ESTADO")
     private long estadoTarifa;
 
-    // VALE:
-    // Esto es un OneToMany porque una estacion puede tener muchos alquileres
-    @ManyToOne
-    @JoinColumn(name = "ESTACION_RETIRO")
-    private EstacionReference estacionRetiro;
+    @Column(name = "ESTACION_RETIRO")
+    private int idEstacionRetiro;
 
-    // Lo mismo que arriba
-    @ManyToOne
-    @JoinColumn(name = "ESTACION_DEVOLUCION")
-    private EstacionReference estacionDevolucion;
+    @Column(name = "ESTACION_DEVOLUCION")
+    private int idEstacionDevolucion;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_HORA_RETIRO")

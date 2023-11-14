@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,11 +29,12 @@ public class AlquilerController {
         return ResponseEntity.ok(values);
     }
 
-    @PostMapping("/create")
+   /* @PostMapping("/create")
     public ResponseEntity<AlquilerDTO> createAlquiler(@RequestBody AlquilerDTO alquilerDTO) {
         AlquilerDTO createdAlquiler = alquilerService.create(alquilerDTO);
         return ResponseEntity.ok(createdAlquiler);
-    }
+    }*/
+
     @DeleteMapping("/delete/{Alquilerid}")
     // VALE: Tiene que devolver String porque cuando se elimina un objeto, no se puede devolver el objeto eliminado, devolvemos un mensaje de "Alquiler deleted".
     public ResponseEntity<String> delete(@PathVariable Long Alquilerid) {
@@ -42,11 +44,43 @@ public class AlquilerController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<AlquilerDTO> update(@PathVariable Long id, @RequestBody AlquilerDTO alquilerDTO) {
-        AlquilerDTO updatedAlquiler = alquilerService.update(id, alquilerDTO);
-        if (updatedAlquiler != null) {
-            return ResponseEntity.ok(updatedAlquiler);
-        } else {
+        if (!alquilerService.existsById(id)) {
             return ResponseEntity.notFound().build();
+        }
+        else{
+            AlquilerDTO updatedAlquiler = alquilerService.update(id,alquilerDTO);
+            return ResponseEntity.ok(updatedAlquiler);
+        }
+
+    }
+
+    // Crear un alquiler de bicileta desde una estacion dada
+    @PostMapping("/createDesde/{estacionId}")
+    public ResponseEntity<AlquilerDTO> createAlquilerDesde(@PathVariable int estacionId, @RequestBody AlquilerDTO alquilerDTO) {
+        AlquilerDTO createdAlquiler = alquilerService.createDesde(estacionId, alquilerDTO);
+        return ResponseEntity.ok(createdAlquiler);
+    }
+
+    // Mostrar los alquileres cuyas tarifas sean mayores a cierto monto
+    @GetMapping("/tarifasMayores/{monto}")
+    public ResponseEntity<List<AlquilerDTO>> getAlquileresTarifasMayores(@PathVariable double monto) {
+        List<AlquilerDTO> alquileresTarifasMayores = alquilerService.getAlquileresTarifasMayores(monto);
+        return ResponseEntity.ok(alquileresTarifasMayores);
+    }
+
+    // Finalizar un alquiler en curso, informando los datos del mismo.
+    @PutMapping("/finalizar/{id}/{moneda}/{estacionDevolucionId}/{fechaHoraDevolucion}")
+    public ResponseEntity<AlquilerDTO> finalizarAlquiler(@PathVariable Long id, @RequestBody AlquilerDTO alquilerDTO, @PathVariable String moneda,
+                                                         @PathVariable int estacionId,@PathVariable Date fechaHoraDevolucion)
+    {
+        // Buscamos si existe el alquiler con el id dado
+        if (!alquilerService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        else{
+            // Si existe, lo finalizamos
+            AlquilerDTO updatedAlquiler = alquilerService.finalizarAlquiler(id, moneda, alquilerDTO, estacionId, fechaHoraDevolucion);
+            return ResponseEntity.ok(updatedAlquiler);
         }
     }
 }

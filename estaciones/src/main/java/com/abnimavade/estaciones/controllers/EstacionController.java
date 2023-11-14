@@ -54,4 +54,11 @@ public class EstacionController {
         long idEstacionEncontrada = estacionService.getEstacionCercana(latitud, longitud);
         return ResponseEntity.ok(idEstacionEncontrada);
     }
+
+    @GetMapping("/getDistanciaEstaciones/{idEstRetiro}/{idEstDevolucion}")
+    public ResponseEntity<Double> getDistanciaEstaciones(@PathVariable int idEstRetiro,@PathVariable int idEstDevolucion){
+        Double distancia = estacionService.getDistanciaEstaciones(idEstRetiro, idEstDevolucion);
+        return ResponseEntity.ok(distancia);
+    }
+
 }
