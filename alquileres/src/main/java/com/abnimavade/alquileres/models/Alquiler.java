@@ -24,12 +24,12 @@ public class Alquiler {
     // Esto es un OneToMany porque una estacion puede tener muchos alquileres
     @ManyToOne
     @JoinColumn(name = "ESTACION_RETIRO")
-    private Estacion estacionRetiro;
+    private EstacionReference estacionRetiro;
 
     // Lo mismo que arriba
     @ManyToOne
     @JoinColumn(name = "ESTACION_DEVOLUCION")
-    private Estacion estacionDevolucion;
+    private EstacionReference estacionDevolucion;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_HORA_RETIRO")
