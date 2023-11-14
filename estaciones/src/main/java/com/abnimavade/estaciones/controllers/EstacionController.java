@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8081")
 @RequestMapping("/estaciones")
 public class EstacionController {
 
@@ -48,5 +48,10 @@ public class EstacionController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @GetMapping("/estacionCercana/{latitud}/{longitud}")
+    public ResponseEntity<Long> getEstacionCercana(@PathVariable double latitud,@PathVariable double longitud){
+        long idEstacionEncontrada = estacionService.getEstacionCercana(latitud, longitud);
+        return ResponseEntity.ok(idEstacionEncontrada);
     }
 }

@@ -16,6 +16,7 @@ public class EstacionService {
     @Autowired
     private EstacionRepository estacionRepository;
 
+    //1. CONSULTAR EL LISTADO DE TODAS LAS ESTACIONES DISPONIBLES EN LA CIUDAD
     public List<EstacionDTO> getAll() {
         List<Estacion> estaciones = estacionRepository.findAll();
         return estaciones.stream().map(this::convertToDto).collect(Collectors.toList());
@@ -35,7 +36,7 @@ public class EstacionService {
         return estacionDTO;
     }
 
-
+    // 5. AGREGAR UNA NUEVA ESTACIÓN AL SISTEMA
     public EstacionDTO create(EstacionDTO estacionDto) {
         Estacion estacion = new Estacion();
         // Nombre de la estacion
@@ -70,5 +71,41 @@ public class EstacionService {
     public String delete(Long id) {
         estacionRepository.deleteById(id);
         return "Estacion deleted";
+    }
+    /*public double distanciaHaversina(double latitudCliente, double longitudCliente, double latitud, double longitud) {
+        double radioTierra = 6371;
+        // Radio medio de la Tierra en kilómetros
+        double dLat = Math.toRadians(latitud - latitudCliente);
+        double dLon = Math.toRadians(longitud - longitudCliente);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(Math.toRadians(latitudCliente)) * Math.cos(Math.toRadians(latitud)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return radioTierra * c;     } */
+
+    public double distanciaEuclidiana(double latitudCliente, double longitudCliente, double latitud, double longitud) {
+        double metrosPorGrado = 110000;
+
+        double dLat = (latitud - latitudCliente) * metrosPorGrado;
+        double dLon = (longitud - longitudCliente) * metrosPorGrado;
+
+        double distancia = Math.sqrt(Math.pow(dLat, 2) + Math.pow(dLon, 2));
+
+        return distancia;
+    }
+    public long getEstacionCercana(double latitud, double longitud){
+        List<Estacion> estaciones = estacionRepository.findAll();
+        // Encontrar la estación más cercana
+
+        Estacion estacionMasCercana = null;
+        double distanciaMinima = Double.MAX_VALUE;
+
+        for (Estacion estacion : estaciones) {
+            double distancia = distanciaEuclidiana(latitud, longitud, estacion.getLatitud(), estacion.getLongitud());
+            if (distancia < distanciaMinima) {
+                distanciaMinima = distancia;
+                estacionMasCercana = estacion;
+            }
+        }
+        long idEstacionCercana = estacionMasCercana.getEstacionId();
+        return idEstacionCercana;
     }
 }
