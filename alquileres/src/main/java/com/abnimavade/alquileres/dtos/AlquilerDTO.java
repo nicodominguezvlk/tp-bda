@@ -1,7 +1,6 @@
-package com.abnimavade.tp.dtos;
+package com.abnimavade.alquileres.dtos;
 
-import com.abnimavade.tp.models.Estacion;
-import com.abnimavade.tp.models.Tarifa;
+import com.abnimavade.alquileres.models.Tarifa;
 import lombok.*;
 
 import java.util.Date;

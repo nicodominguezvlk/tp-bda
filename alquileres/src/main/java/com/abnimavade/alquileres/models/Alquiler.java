@@ -1,4 +1,4 @@
-package com.abnimavade.tp.models;
+package com.abnimavade.alquileres.models;
 
 import jakarta.persistence.*;
 import java.util.Date;

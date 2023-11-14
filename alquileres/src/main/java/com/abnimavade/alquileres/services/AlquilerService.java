@@ -1,12 +1,12 @@
-package com.abnimavade.tp.services;
+package com.abnimavade.alquileres.services;
 
-import com.abnimavade.tp.dtos.AlquilerDTO;
+import com.abnimavade.alquileres.dtos.AlquilerDTO;
 
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.abnimavade.tp.models.Alquiler;
-import com.abnimavade.tp.repositories.AlquilerRepository;
+import com.abnimavade.alquileres.models.Alquiler;
+import com.abnimavade.alquileres.repositories.AlquilerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service

@@ -1,10 +1,8 @@
-package com.abnimavade.tp.controllers;
+package com.abnimavade.estaciones.controllers;
 
-
-import com.abnimavade.tp.dtos.EstacionDTO;
-import com.abnimavade.tp.services.EstacionService;
+import com.abnimavade.estaciones.dtos.EstacionDTO;
+import com.abnimavade.estaciones.services.EstacionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

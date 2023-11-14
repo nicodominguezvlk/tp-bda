@@ -1,12 +1,10 @@
-package com.abnimavade.tp.services;
+package com.abnimavade.estaciones.services;
 
-import com.abnimavade.tp.dtos.EstacionDTO;
-import com.abnimavade.tp.models.Estacion;
+import com.abnimavade.estaciones.dtos.EstacionDTO;
+import com.abnimavade.estaciones.models.Estacion;
+import com.abnimavade.estaciones.repos.EstacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.abnimavade.tp.repositories.EstacionRepository;
-
-
 
 import java.util.List;
 import java.util.stream.Collectors;

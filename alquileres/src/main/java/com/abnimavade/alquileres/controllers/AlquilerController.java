@@ -1,9 +1,8 @@
-package com.abnimavade.tp.controllers;
+package com.abnimavade.alquileres.controllers;
 
 
-import com.abnimavade.tp.dtos.AlquilerDTO;
-import com.abnimavade.tp.services.AlquilerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.abnimavade.alquileres.dtos.AlquilerDTO;
+import com.abnimavade.alquileres.services.AlquilerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +11,9 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping("/alquileres")
+@RequestMapping("/micro-alquileres")
 public class AlquilerController {
 
-    @Autowired
     private final AlquilerService alquilerService;
 
     public AlquilerController(AlquilerService alquilerService){

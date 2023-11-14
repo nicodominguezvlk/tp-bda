@@ -1,6 +1,8 @@
-package com.abnimavade.tp.dtos;
+package com.abnimavade.estaciones.dtos;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 

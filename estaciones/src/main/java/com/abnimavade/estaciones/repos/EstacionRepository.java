@@ -1,6 +1,6 @@
-package com.abnimavade.tp.repositories;
+package com.abnimavade.estaciones.repos;
 
-import com.abnimavade.tp.models.Estacion;
+import com.abnimavade.estaciones.models.Estacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
