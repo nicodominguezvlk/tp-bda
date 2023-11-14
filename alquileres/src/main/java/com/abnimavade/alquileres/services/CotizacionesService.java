@@ -1,8 +1,10 @@
 package com.abnimavade.alquileres.services;
 
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+@Service("cotizacionesService")
 public class CotizacionesService {
 
     private final String apiUrl = "http://34.82.105.125:8080/convertir";

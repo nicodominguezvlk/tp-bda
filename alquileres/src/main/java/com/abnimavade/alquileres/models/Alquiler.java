@@ -1,7 +1,8 @@
 package com.abnimavade.alquileres.models;
 
 import jakarta.persistence.*;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 import lombok.*;
 @Entity(name = "ALQUILERES")
 @Data
@@ -18,7 +19,7 @@ public class Alquiler {
     private String idCliente;
 
     @Column(name = "ESTADO")
-    private long estadoTarifa;
+    private long estadoTarifa; // ES ESTADO ALQUILER
 
     @Column(name = "ESTACION_RETIRO")
     private int idEstacionRetiro;
@@ -28,17 +29,17 @@ public class Alquiler {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_HORA_RETIRO")
-    private Date fechaHoraRetiro;
+    private LocalDateTime fechaHoraRetiro;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_HORA_DEVOLUCION")
-    private Date fechaHoraDevolucion;
+    private LocalDateTime fechaHoraDevolucion;
 
     @Column(name = "MONTO")
     private double monto;
 
     // Esto es un OneToOne porque un alquiler tiene una sola tarifa
     @OneToOne
-    @JoinColumn(name = "ID_TARIFA")
-    private Tarifa idTarifa;
+    @JoinColumn(name = "ID_TARIFA", referencedColumnName = "ID")
+    private Tarifa tarifa;
 }

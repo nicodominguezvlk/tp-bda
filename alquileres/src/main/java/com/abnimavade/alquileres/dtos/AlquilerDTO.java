@@ -3,6 +3,7 @@ package com.abnimavade.alquileres.dtos;
 import com.abnimavade.alquileres.models.Tarifa;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -16,8 +17,8 @@ public class AlquilerDTO {
     private long estadoTarifa;
     private int idEstacionRetiro;
     private int idEstacionDevolucion;
-    private Date fechaHoraRetiro;
-    private Date fechaHoraDevolucion;
+    private LocalDateTime fechaHoraRetiro;
+    private LocalDateTime fechaHoraDevolucion;
     private double monto;
-    private Tarifa idTarifa;
+    private Long idTarifa;
 }

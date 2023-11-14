@@ -2,11 +2,15 @@ package com.abnimavade.alquileres.controllers;
 
 
 import com.abnimavade.alquileres.dtos.AlquilerDTO;
+import com.abnimavade.alquileres.dtos.AlquilerInicioDTO;
+import com.abnimavade.alquileres.models.Alquiler;
 import com.abnimavade.alquileres.services.AlquilerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +19,9 @@ import java.util.List;
 @RequestMapping("/alquileres")
 public class AlquilerController {
 
+
     private final AlquilerService alquilerService;
+    @Autowired
 
     public AlquilerController(AlquilerService alquilerService){
         this.alquilerService = alquilerService;
@@ -42,7 +48,7 @@ public class AlquilerController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/update/{id}")
+   /* @PutMapping("/update/{id}")
     public ResponseEntity<AlquilerDTO> update(@PathVariable Long id, @RequestBody AlquilerDTO alquilerDTO) {
         if (!alquilerService.existsById(id)) {
             return ResponseEntity.notFound().build();
@@ -52,12 +58,12 @@ public class AlquilerController {
             return ResponseEntity.ok(updatedAlquiler);
         }
 
-    }
+    }*/
 
     // Crear un alquiler de bicileta desde una estacion dada
-    @PostMapping("/createDesde/{estacionId}")
-    public ResponseEntity<AlquilerDTO> createAlquilerDesde(@PathVariable int estacionId, @RequestBody AlquilerDTO alquilerDTO) {
-        AlquilerDTO createdAlquiler = alquilerService.createDesde(estacionId, alquilerDTO);
+    @PostMapping("/createDesde")
+    public ResponseEntity<Alquiler> createAlquilerDesde(@RequestBody AlquilerInicioDTO alquilerInicioDTO) {
+        Alquiler createdAlquiler = alquilerService.createDesde(alquilerInicioDTO);
         return ResponseEntity.ok(createdAlquiler);
     }
 
@@ -71,7 +77,7 @@ public class AlquilerController {
     // Finalizar un alquiler en curso, informando los datos del mismo.
     @PutMapping("/finalizar/{id}/{moneda}/{estacionDevolucionId}/{fechaHoraDevolucion}")
     public ResponseEntity<AlquilerDTO> finalizarAlquiler(@PathVariable Long id, @RequestBody AlquilerDTO alquilerDTO, @PathVariable String moneda,
-                                                         @PathVariable int estacionId,@PathVariable Date fechaHoraDevolucion)
+                                                         @PathVariable int estacionId,@PathVariable LocalDateTime fechaHoraDevolucion)
     {
         // Buscamos si existe el alquiler con el id dado
         if (!alquilerService.existsById(id)) {
