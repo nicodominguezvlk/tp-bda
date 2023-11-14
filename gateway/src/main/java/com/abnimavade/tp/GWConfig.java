@@ -1,6 +1,5 @@
 package com.abnimavade.tp;
 
-
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -20,10 +19,13 @@ public class GWConfig {
 
     @Bean
     public RouteLocator configurarRutas(RouteLocatorBuilder builder){
+
+        String uriAlquileres = "http://localhost:8082";
+        String uriEstaciones = "http://localhost:8081";
+
         return builder.routes()
-                // VALE: Aca puse los /** para que se pueda acceder a todos los recursos de cada microservicio, nose si sta bien, asi esta en la ficha
-                .route(p -> p.path("/alquileres/**").uri("http://localhost:8082"))
-                .route(p -> p.path("/estaciones/**").uri("http://localhost:8081"))
+                .route(p -> p.path("/alquileres/**").uri(uriAlquileres))
+                .route(p -> p.path("/estaciones/**").uri(uriEstaciones))
                 .build();
     }
 
@@ -33,7 +35,9 @@ public class GWConfig {
         http.authorizeExchange(exchanges -> exchanges
 
                 // Acceso publico
-                .pathMatchers("/recursos-publicos/**")
+                .pathMatchers("/estaciones/**")
+                .permitAll()
+                .pathMatchers("/alquileres/**")
                 .permitAll()
 
                 // POST solo admins, GET solo clientes
