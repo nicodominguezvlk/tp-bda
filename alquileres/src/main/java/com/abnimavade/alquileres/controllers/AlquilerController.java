@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping("/micro-alquileres")
+@RequestMapping("/alquileres")
 public class AlquilerController {
 
     private final AlquilerService alquilerService;

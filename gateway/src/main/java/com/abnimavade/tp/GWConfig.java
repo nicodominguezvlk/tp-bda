@@ -20,8 +20,8 @@ public class GWConfig {
     @Bean
     public RouteLocator configurarRutas(RouteLocatorBuilder builder){
         return builder.routes()
-                .route(p -> p.path("/alquileres").uri("http://localhost:8080/micro-alquileres"))
-                .route(p -> p.path("/estaciones").uri("http://localhost:8080/micro-estaciones"))
+                .route(p -> p.path("/alquileres").uri("http://localhost:8082"))
+                .route(p -> p.path("/estaciones").uri("http://localhost:8081"))
                 .route(p -> p.path("/tarifas").uri("http://localhost:8080/micro-tarifas"))
                 .build();
     }
