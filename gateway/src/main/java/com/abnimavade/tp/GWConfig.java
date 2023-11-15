@@ -34,26 +34,21 @@ public class GWConfig {
             Exception{
         http.authorizeExchange(exchanges -> exchanges
 
-                // Acceso publico
                 .pathMatchers("/estaciones/**")
                 .permitAll()
                 .pathMatchers("/alquileres/**")
                 .permitAll()
 
-                // POST solo admins, GET solo clientes
-                .pathMatchers(HttpMethod.GET, "/protegido-a/**")
+                .pathMatchers(HttpMethod.GET, "/alquileres/**")
+                .hasRole("ADMIN")
+                .pathMatchers(HttpMethod.POST, "/alquileres/**")
                 .hasRole("CLIENTE")
-                .pathMatchers(HttpMethod.POST, "/protegido-a/**")
-                .hasRole("ADMIN")
-
-                // POST solo clientes, GET solo admins
-                .pathMatchers(HttpMethod.GET, "/protegido-b/**")
-                .hasRole("ADMIN")
-                .pathMatchers(HttpMethod.POST, "/protegido-b/**")
+                .pathMatchers(HttpMethod.PUT, "/alquileres/**")
                 .hasRole("CLIENTE")
 
-                // POST solo clientes
-                .pathMatchers(HttpMethod.POST, "/protegido-c/**")
+                .pathMatchers(HttpMethod.POST, "/estaciones/**")
+                .hasRole("ADMIN")
+                .pathMatchers(HttpMethod.GET, "/estaciones/**")
                 .hasRole("CLIENTE")
 
                 // Cualquier otra petición
