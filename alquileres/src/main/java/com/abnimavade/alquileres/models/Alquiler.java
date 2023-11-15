@@ -19,7 +19,7 @@ public class Alquiler {
     private String idCliente;
 
     @Column(name = "ESTADO")
-    private long estadoTarifa; // ES ESTADO ALQUILER
+    private long estadoTarifa;
 
     @Column(name = "ESTACION_RETIRO")
     private int idEstacionRetiro;

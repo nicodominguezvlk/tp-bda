@@ -57,25 +57,6 @@ public class AlquilerService{
     }
 
 
-   /* public AlquilerDTO update(Long id,AlquilerDTO alquilerDTO) {
-        Alquiler alquiler = alquilerRepository.findById(id).get();
-        // Id del cliente
-        alquiler.setIdCliente(alquilerDTO.getIdCliente());
-        // Estado tarifa
-        alquiler.setEstadoTarifa(alquilerDTO.getEstadoTarifa());
-        // Estaciones de retiro y devolucion
-        alquiler.setIdEstacionRetiro(alquilerDTO.getIdEstacionRetiro());
-        alquiler.setIdEstacionDevolucion(alquilerDTO.getIdEstacionDevolucion());
-        // Fecha de retiro y devolucion
-        alquiler.setFechaHoraRetiro(alquilerDTO.getFechaHoraRetiro());
-        alquiler.setFechaHoraDevolucion(alquilerDTO.getFechaHoraDevolucion());
-        // Monto total e id tarifa
-        alquiler.setMonto(alquilerDTO.getMonto());
-        alquiler.setTarifa(alquilerDTO.getTarifa());
-        alquiler = alquilerRepository.save(alquiler);
-        alquilerDTO.setAlquilerId(alquiler.getAlquilerId());
-        return alquilerDTO;
-    } */
 
     public String delete(Long id) {
         alquilerRepository.deleteById(id);
@@ -133,15 +114,11 @@ public class AlquilerService{
         // El 2 simboliza que el alquiler esta finalizado
         long estadoTarifa = 2;
         Alquiler alquiler = alquilerRepository.findById(id).get();
-        // Id del cliente
-        //alquiler.setIdCliente(alquilerDTO.getIdCliente());
         // Estado Alquiler
         alquiler.setEstadoTarifa(estadoTarifa);
         // Estaciones de retiro y devolucion
-        //alquiler.setIdEstacionRetiro(alquilerDTO.getIdEstacionRetiro());
         alquiler.setIdEstacionDevolucion(estacionId);
         // Fecha de retiro y devolucion
-        //alquiler.setFechaHoraRetiro(alquilerDTO.getFechaHoraRetiro());
         alquiler.setFechaHoraDevolucion(fechaHoraDevolucion);
         // Monto total e id tarifa
         double montoMedio = calcularMonto(alquilerDTO.getFechaHoraRetiro(),fechaHoraDevolucion,alquilerDTO);

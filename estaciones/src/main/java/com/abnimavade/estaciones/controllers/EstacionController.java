@@ -19,8 +19,7 @@ public class EstacionController {
     public EstacionController(EstacionService estacionService){
         this.estacionService = estacionService;
     }
-    // VALE: HAY QUE HACER UN GET PARA CADA ENTIDAD
-    // Y PONER EL NOMBRE DE LA ENTIDAD EN EL PATH
+
     @GetMapping("/allEstaciones")
     public ResponseEntity<List<EstacionDTO>> getAll(){
         List<EstacionDTO> values = this.estacionService.getAll();

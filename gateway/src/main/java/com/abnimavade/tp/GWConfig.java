@@ -76,9 +76,6 @@ public class GWConfig {
         // Se asocia el conversor de Authorities al Bean que convierte el token JWT a un objeto Authorization
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
                 new ReactiveJwtGrantedAuthoritiesConverterAdapter(grantedAuthoritiesConverter));
-        // También se puede cambiar el claim que corresponde al nombre que luego se utilizará en el objeto
-        // Authorization
-        // jwtAuthenticationConverter.setPrincipalClaimName("user_name");
 
         return jwtAuthenticationConverter;
     }

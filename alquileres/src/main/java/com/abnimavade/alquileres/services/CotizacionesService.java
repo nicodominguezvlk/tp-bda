@@ -50,11 +50,6 @@ public class CotizacionesService {
         }
         catch (JsonProcessingException e){}
 
-        // Extract the "importe" field as a double
-
-
-        //convertedValue = Double.parseDouble(responseBody.split(":")[1].replaceAll("[^\\d.]", ""));
-
         return 0;
     }
 
