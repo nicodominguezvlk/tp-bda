@@ -5,9 +5,7 @@ import com.abnimavade.alquileres.dtos.AlquilerDTO;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.abnimavade.alquileres.dtos.AlquilerInicioDTO;
@@ -83,7 +81,7 @@ public class AlquilerService{
         return "Alquiler deleted";
     }
 
-    public Alquiler createDesde( AlquilerInicioDTO alquilerDTO) {
+    public Alquiler createDesde(AlquilerInicioDTO alquilerDTO) {
 
         // Este create pasa la estacion en el link y el otro en el body
         Alquiler alquiler = new Alquiler();
@@ -93,13 +91,17 @@ public class AlquilerService{
         alquiler.setEstadoTarifa(1);
         // Estaciones de retiro
         alquiler.setIdEstacionRetiro(alquilerDTO.getIdEstacionRetiro());
+        // Estación de devolucion
+        alquiler.setIdEstacionDevolucion(0);
         // Fecha de retiro
         alquiler.setFechaHoraRetiro(alquilerDTO.getFechaHoraRetiro());
+        // Fecha de devolucion
+        alquiler.setFechaHoraDevolucion(LocalDateTime.MIN);
         // Monto total e id tarifa
         Tarifa tarifa = this.tarifaService.getTarifaById(alquilerDTO.getIdTarifa());
         if (tarifa.getDefinicion().equals("S")) {
             // La tarifa es por día de la semana
-            // Chequear que la fecha de retiro sea en el mismo día de la semana que la tarifa
+            // Chequear que la fecha de retiro sea en el mismo dia de la semana que la tarifa
             if (alquilerDTO.getFechaHoraRetiro().getDayOfWeek().getValue() != tarifa.getDiaSemana()) {
                 throw new RuntimeException("La fecha de retiro no coincide con la tarifa");
             }
@@ -107,7 +109,7 @@ public class AlquilerService{
         }
         if (tarifa.getDefinicion().equals("C")) {
             // La tarifa es definida por dia, mes y año
-            // Chequear que la fecha de retiro sea en el mes,dia y año de la tarifa
+            // Chequear que la fecha de retiro sea en el mes, dia y anio de la tarifa
             if (alquilerDTO.getFechaHoraRetiro().getDayOfMonth() != tarifa.getDiaMes() ||
                 alquilerDTO.getFechaHoraRetiro().getMonthValue() != tarifa.getMes()
                 || alquilerDTO.getFechaHoraRetiro().getYear() != tarifa.getAnio()) {
@@ -115,6 +117,7 @@ public class AlquilerService{
             }
 
         }
+        alquiler.setMonto(0);
         alquiler.setTarifa(tarifa);
         alquiler = alquilerRepository.save(alquiler);
         return alquiler;

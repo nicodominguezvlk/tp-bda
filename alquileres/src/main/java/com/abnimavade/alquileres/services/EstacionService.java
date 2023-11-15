@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 public class EstacionService {
     public Double getDistanciaEstaciones(long idEstRetiro, int idEstDevolucion) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8081/getDistanciaEstaciones?idEstRetiro=" + idEstRetiro + "&idEstDevolucion=" + idEstDevolucion;
+        String url = "http://localhost:8081/estaciones/getDistanciaEstaciones/" + Long.toString(idEstRetiro) + "/" + Integer.toString(idEstDevolucion);
         return restTemplate.getForObject(url, Double.class);
     }
 }

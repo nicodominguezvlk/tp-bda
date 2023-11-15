@@ -4,6 +4,7 @@ package com.abnimavade.alquileres.controllers;
 import com.abnimavade.alquileres.dtos.AlquilerDTO;
 import com.abnimavade.alquileres.dtos.AlquilerInicioDTO;
 import com.abnimavade.alquileres.models.Alquiler;
+import com.abnimavade.alquileres.repositories.AlquilerRepository;
 import com.abnimavade.alquileres.services.AlquilerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,12 @@ public class AlquilerController {
 
 
     private final AlquilerService alquilerService;
+    private final AlquilerRepository alquilerRepository;
     @Autowired
 
-    public AlquilerController(AlquilerService alquilerService){
+    public AlquilerController(AlquilerService alquilerService, AlquilerRepository alquilerRepository){
         this.alquilerService = alquilerService;
+        this.alquilerRepository = alquilerRepository;
     }
 
     // VALE: HAY QUE HACER UN GET PARA CADA ENTIDAD
@@ -75,10 +78,14 @@ public class AlquilerController {
     }
 
     // Finalizar un alquiler en curso, informando los datos del mismo.
-    @PutMapping("/finalizar/{id}/{moneda}/{estacionDevolucionId}/{fechaHoraDevolucion}")
-    public ResponseEntity<AlquilerDTO> finalizarAlquiler(@PathVariable Long id, @RequestBody AlquilerDTO alquilerDTO, @PathVariable String moneda,
-                                                         @PathVariable int estacionId,@PathVariable LocalDateTime fechaHoraDevolucion)
+    @PutMapping("/finalizar/{id}/{moneda}/{estacionId}/{fechaHoraDevolucion}")
+    public ResponseEntity<AlquilerDTO> finalizarAlquiler(@PathVariable Long id, @PathVariable String moneda,
+                                                         @PathVariable int estacionId, @PathVariable LocalDateTime fechaHoraDevolucion)
     {
+        Alquiler alquiler = alquilerRepository.getById(id);
+
+        AlquilerDTO alquilerDTO = new AlquilerDTO(id, alquiler.getIdCliente(), alquiler.getEstadoTarifa(), alquiler.getIdEstacionRetiro(), alquiler.getIdEstacionDevolucion(), alquiler.getFechaHoraRetiro(), alquiler.getFechaHoraDevolucion(), alquiler.getMonto(), alquiler.getTarifa().getTarifaId());
+
         // Buscamos si existe el alquiler con el id dado
         if (!alquilerService.existsById(id)) {
             return ResponseEntity.notFound().build();

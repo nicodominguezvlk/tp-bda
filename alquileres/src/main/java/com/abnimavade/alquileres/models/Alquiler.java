@@ -42,4 +42,8 @@ public class Alquiler {
     @OneToOne
     @JoinColumn(name = "ID_TARIFA", referencedColumnName = "ID")
     private Tarifa tarifa;
+
+    public void setAlquilerId(long alquilerId) {
+        this.alquilerId = alquilerId;
+    }
 }
