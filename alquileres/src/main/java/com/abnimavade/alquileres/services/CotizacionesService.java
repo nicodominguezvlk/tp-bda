@@ -1,21 +1,26 @@
 package com.abnimavade.alquileres.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Locale;
 
 @Service("cotizacionesService")
 public class CotizacionesService {
 
     private final String apiUrl = "http://34.82.105.125:8080/convertir";
 
-    public double convertirMoneda(String moneda, double cantidadArs){
+    public double convertirMoneda(String moneda, double cantidadArs) {
         // Set the request headers
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         // Create the request body
-        String requestBody = String.format("{\"moneda_destino\":\"%s\",\"importe\":%f}", moneda, cantidadArs);
+        String requestBody = String.format(Locale.US, "{\"moneda_destino\":\"%s\",\"importe\":%.2f}", moneda, cantidadArs);
 
         // Create the request entity with headers and body
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
@@ -31,9 +36,26 @@ public class CotizacionesService {
         // Assuming your response always has "importe" as a key
         double convertedValue;
         assert responseBody != null;
-        convertedValue = Double.parseDouble(responseBody.split(":")[1].replaceAll("[^\\d.]", ""));
 
-        return convertedValue;
+        // Create an ObjectMapper instance
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Parse the JSON string
+        try {
+            JsonNode jsonNode = objectMapper.readTree(responseBody);
+
+            convertedValue = jsonNode.get("importe").asDouble();
+
+            return convertedValue;
+        }
+        catch (JsonProcessingException e){}
+
+        // Extract the "importe" field as a double
+
+
+        //convertedValue = Double.parseDouble(responseBody.split(":")[1].replaceAll("[^\\d.]", ""));
+
+        return 0;
     }
 
 }

@@ -50,13 +50,13 @@ public class EstacionController {
         }
     }
     @GetMapping("/estacionCercana/{latitud}/{longitud}")
-    public ResponseEntity<Long> getEstacionCercana(@PathVariable double latitud,@PathVariable double longitud){
+    public ResponseEntity<Long> getEstacionCercana(@PathVariable double latitud, @PathVariable double longitud){
         long idEstacionEncontrada = estacionService.getEstacionCercana(latitud, longitud);
         return ResponseEntity.ok(idEstacionEncontrada);
     }
 
     @GetMapping("/getDistanciaEstaciones/{idEstRetiro}/{idEstDevolucion}")
-    public ResponseEntity<Double> getDistanciaEstaciones(@PathVariable int idEstRetiro,@PathVariable int idEstDevolucion){
+    public ResponseEntity<Double> getDistanciaEstaciones(@PathVariable int idEstRetiro, @PathVariable int idEstDevolucion){
         Double distancia = estacionService.getDistanciaEstaciones(idEstRetiro, idEstDevolucion);
         return ResponseEntity.ok(distancia);
     }

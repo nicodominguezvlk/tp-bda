@@ -12,6 +12,7 @@ import com.abnimavade.alquileres.dtos.AlquilerInicioDTO;
 import com.abnimavade.alquileres.models.Alquiler;
 import com.abnimavade.alquileres.models.Tarifa;
 import com.abnimavade.alquileres.repositories.AlquilerRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service("alquilerService")
@@ -149,8 +150,10 @@ public class AlquilerService{
         alquiler.setMonto(tarifaConvertida);
         alquiler = alquilerRepository.save(alquiler);
         alquilerDTO.setAlquilerId(alquiler.getAlquilerId());
+        alquilerDTO.setEstadoTarifa(estadoTarifa);
+        alquilerDTO.setFechaHoraDevolucion(fechaHoraDevolucion);
+        alquilerDTO.setMonto(tarifaConvertida);
         return alquilerDTO;
-     
     }
 
     private double calcularMonto(LocalDateTime fechaHoraRetiro, LocalDateTime fechaHoraDevolucion, AlquilerDTO alquilerDTO) {
